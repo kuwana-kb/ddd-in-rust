@@ -46,5 +46,5 @@ fn test_phantom_money() {
     let usd = Money::<USD>::new(Decimal::new(3, 0));
 
     let result = jpy_1 + jpy_2; // コンパイルOk
-    // let invalid_result = jpy_1 + usd; //コンパイルエラー
+                                // let invalid_result = jpy_1 + usd; //コンパイルエラー
 }
