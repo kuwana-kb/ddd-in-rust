@@ -19,7 +19,7 @@ impl User {
 
     // nameフィールドは可変性を持つ
     // Name型が3文字以上を保証しているため、ここでチェックする必要はない
-    pub fn change_user_name(&mut self, name: Name) {
+    pub fn change_username(&mut self, name: Name) {
         self.name = name;
     }
 }
@@ -63,7 +63,7 @@ impl FromStr for Name {
 fn test_user_eq() {
     let user_before = User::new(UserId::new("DummyId1"), "Hoge".parse().unwrap());
     let mut user_after = user_before.clone();
-    user_after.change_user_name("Fuga".parse().unwrap());
+    user_after.change_username("Fuga".parse().unwrap());
 
     // beforeとafterで名前が異なる
     assert_eq!(user_before.name().to_string(), "Hoge".to_string()); // Ok

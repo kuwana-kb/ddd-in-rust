@@ -8,8 +8,8 @@ pub struct UserService {}
 
 impl UserService {
     // ユーザー名が重複するかを確認する
-    pub fn exists(user: User) -> bool {
-        // User.user_nameの重複をチェックするような実装
+    pub fn exists(&self, user: User) -> bool {
+        // User.usernameの重複をチェックするような実装
         // Infra周りの実装は冗長でなのでRepositoryで扱いたい
         unimplemented!()
     }
@@ -25,9 +25,11 @@ impl UserService {
 
 #[test]
 fn check_user() {
+    use crate::c3_entity::UserId;
+
     // UserServiceの使い方を表すサンプル
     let user_service = UserService::new();
 
     let user = User::new(UserId::new("id"), "Hoge".parse().unwrap());
-    let duplicate_check_result = user_service.exists(user);
+    // let duplicate_check_result = user_service.exists(user); // 実装がないためpanicする
 }
