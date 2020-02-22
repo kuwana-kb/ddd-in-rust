@@ -1,7 +1,7 @@
 # 概要
 ddd-in-rustは、DDDの実装パターンをRustで表現すること試みたリポジトリです。
 
-DDDの実装パターンは、「[ドメイン駆動設計入門 ボトムアップでわかる！ドメイン駆動設計の基本](https://www.amazon.co.jp/dp/B082WXZVPC/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1)」という書籍のサンプルコードを元に、Rustで書いています。
+DDDの実装パターンは、「[ドメイン駆動設計入門 ボトムアップでわかる！ドメイン駆動設計の基本](https://www.amazon.co.jp/dp/B082WXZVPC/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1)」(著: 成瀬 允宣氏)という書籍のサンプルコードを元に、Rustで書いています。
 
 # ディレクトリ構成
 `/src`配下にソースコードを置いています。
