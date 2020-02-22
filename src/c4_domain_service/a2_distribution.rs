@@ -11,7 +11,7 @@ impl PhysicalDistributionBase {
         unimplemented!()
     }
 
-    /// 輸送(出庫 -> 入庫)
+    // 輸送(出庫 -> 入庫)
     // 物流拠点が輸送のふるまいを持つのは不自然
     // 入出庫の記録等も物流拠点が担うことになりそう
     // pub fn transport(&self, to: &mut PhysicalDistributionBase, baggage: Baggage) {
@@ -20,8 +20,14 @@ impl PhysicalDistributionBase {
     // }
 }
 
-pub struct TransportService {
-    pub fn transport(from: PhysicalDistributionBase, to: PhysicalDistributionBase, baggage: Baggage) {
+pub struct TransportService {}
+
+impl TransportService {
+    pub fn transport(
+        from: PhysicalDistributionBase,
+        to: PhysicalDistributionBase,
+        baggage: Baggage,
+    ) {
         let shipped_baggage = from.ship(baggage);
         to.receive(shipped_baggage);
 

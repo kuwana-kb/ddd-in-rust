@@ -1,10 +1,10 @@
 use derive_new::new;
 
-use crate::c3_entity::{User, UserId, Name};
+use crate::c3_entity::User;
 
 /// UserServiceはUserが持つと不自然なふるまいを受け持つ
 #[derive(Debug, new)]
-pub struct UserService{}
+pub struct UserService {}
 
 impl UserService {
     // ユーザー名が重複するかを確認する
@@ -24,7 +24,7 @@ impl UserService {
 }
 
 #[test]
-fn check_user {
+fn check_user() {
     // UserServiceの使い方を表すサンプル
     let user_service = UserService::new();
 
