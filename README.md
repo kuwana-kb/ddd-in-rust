@@ -12,10 +12,10 @@ DDDにおける以下の概念をRustで表現しています。
 * Entity
 * Value Object
 * Domain Service
+* Application Service
 
 ## TODO
 * Repository
-* Application Service
 * Factory
 * Aggregate
 * Specification
