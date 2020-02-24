@@ -78,9 +78,9 @@ impl TryFrom<UserDto> for User {
     type Error = anyhow::Error;
 
     fn try_from(v: UserDto) -> Result<Self> {
-        let id = UserId::default();
+        let id = v.id.parse()?;
         let name = v.name.parse()?;
-        Ok(User::new(name))
+        Ok(User::rebuild(id, name))
     }
 }
 

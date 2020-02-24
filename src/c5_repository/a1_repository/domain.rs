@@ -91,6 +91,10 @@ impl User {
             name,
         }
     }
+
+    pub fn rebuild(id: UserId, name: Name) -> Self {
+        Self { id, name }
+    }
 }
 
 #[derive(Clone, Debug, Display, Hash, PartialEq, Eq)]
@@ -98,7 +102,17 @@ pub struct UserId(String);
 
 impl Default for UserId {
     fn default() -> Self {
+        // TODO: uuid等で自動生成する
         UserId("DummyId".to_string())
+    }
+}
+
+impl FromStr for UserId {
+    type Err = anyhow::Error;
+
+    fn from_str(s: &str) -> Result<Self> {
+        // 生成時の制約がある場合、それを満たすようにすること
+        Ok(UserId(s.to_string()))
     }
 }
 
