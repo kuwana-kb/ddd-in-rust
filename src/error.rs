@@ -9,7 +9,11 @@ pub enum MyError {
 }
 
 impl MyError {
-    pub fn type_error(v: &str) -> MyError {
-        MyError::TypeError(v.to_string())
+    pub fn type_error(s: &str) -> MyError {
+        MyError::TypeError(s.to_string())
+    }
+
+    pub fn internal_server_error(s: &str) -> MyError {
+        MyError::InternalServerError(s.to_string())
     }
 }

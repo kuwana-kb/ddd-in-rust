@@ -11,6 +11,7 @@ anyhow = "1.0.26"
 derive-getters = "0.1.0"
 derive_more = "0.99.2"
 derive-new = "0.5.8"
+diesel = "1.4.3"
 regex = "1.3.4"
 rust_decimal = { version = "1.2.1"}
 postgres = "0.17.1"
