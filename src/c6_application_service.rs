@@ -1,1 +1,4 @@
-mod a1_application_service;
+mod domain;
+mod usecase;
+
+pub use domain::*;
