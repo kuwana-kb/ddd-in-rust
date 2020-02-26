@@ -14,7 +14,6 @@ pub struct InMemoryUserRepository {
 
 impl IUserRepository for InMemoryUserRepository {
     fn save(&self, user: User) -> Result<()> {
-        println!("save: {:?}", user);
         let store = self.store.clone();
         let mut store = store
             .try_lock()
@@ -33,7 +32,6 @@ impl IUserRepository for InMemoryUserRepository {
             .filter(|user| user.name().clone() == name)
             .cloned()
             .collect::<Vec<User>>();
-        println!("target: {:?}", target);
         Ok(target.first().cloned())
     }
 }
