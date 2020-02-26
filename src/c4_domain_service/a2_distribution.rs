@@ -1,13 +1,15 @@
+#![allow(dead_code)]
+
 /// 物流拠点
 pub struct PhysicalDistributionBase {}
 
 impl PhysicalDistributionBase {
     /// 出庫
-    pub fn ship(&self, baggage: Baggage) -> Baggage {
+    pub fn ship(&self, _baggage: Baggage) -> Baggage {
         unimplemented!()
     }
     /// 入庫
-    pub fn receive(&self, baggage: Baggage) {
+    pub fn receive(&self, _baggage: Baggage) {
         unimplemented!()
     }
 

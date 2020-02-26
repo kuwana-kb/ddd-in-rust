@@ -1,9 +1,9 @@
+#![allow(dead_code)]
 use std::str::FromStr;
 
 use anyhow::Result;
 use derive_getters::Getters;
 use derive_more::Display;
-use derive_new::new;
 use uuid::Uuid;
 
 use crate::MyError;
