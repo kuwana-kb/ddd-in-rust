@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use derive_new::new;
 
 use crate::c3_entity::User;
@@ -8,7 +10,7 @@ pub struct UserService {}
 
 impl UserService {
     // ユーザー名が重複するかを確認する
-    pub fn exists(&self, user: User) -> bool {
+    pub fn exists(&self, _user: User) -> bool {
         // User.usernameの重複をチェックするような実装
         // Infra周りの実装は冗長でなのでRepositoryで扱いたい
         unimplemented!()

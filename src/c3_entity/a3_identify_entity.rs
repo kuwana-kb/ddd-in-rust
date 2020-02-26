@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use anyhow::Result;
 use derive_getters::Getters;
 use derive_more::Display;

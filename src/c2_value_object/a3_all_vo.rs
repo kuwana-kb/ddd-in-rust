@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use derive_getters::Getters;
 use regex::Regex;
 use std::str::FromStr;

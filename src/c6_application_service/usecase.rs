@@ -1,10 +1,8 @@
-use std::str::FromStr;
+#![allow(dead_code)]
 
 use anyhow::Result;
 use derive_getters::Getters;
-use derive_more::Display;
 use derive_new::new;
-use uuid::Uuid;
 
 use super::{IUserRepository, MailAddress, Name, User, UserId, UserService};
 use crate::MyError;

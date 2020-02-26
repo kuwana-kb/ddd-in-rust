@@ -1,7 +1,6 @@
 #[macro_use]
 extern crate anyhow;
 
-#[macro_use]
 extern crate diesel;
 
 mod c2_value_object;

@@ -4,7 +4,7 @@ use anyhow::Result;
 use derive_new::new;
 use postgres::{Client, NoTls};
 
-use super::{IUserRepository, Name, User, UserId};
+use super::{IUserRepository, Name, User};
 
 // -------------------------
 // Infrastucture層
@@ -16,7 +16,7 @@ pub struct UserRepository {}
 const CONNECTION_STRING: &str = "host=localhost user=postgres";
 
 impl IUserRepository for UserRepository {
-    fn save(&mut self, user: User) -> Result<()> {
+    fn save(&self, user: User) -> Result<()> {
         // サンプルとしては、DBを操作するための簡易的な実装に留める
         // ConnectionPoolをアプリケーションを表すstructに対して持たせて引き回す方がよいはず
         let mut client = Client::connect(CONNECTION_STRING, NoTls)?;

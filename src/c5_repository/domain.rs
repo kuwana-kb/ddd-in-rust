@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use std::str::FromStr;
 
 use anyhow::Result;
@@ -14,8 +16,7 @@ use crate::error::MyError;
 // Repositoryはふるまいを定義するためtraitで実装
 pub trait IUserRepository: Clone {
     // 処理が失敗する可能性があるため、返り値はResult型で定義
-    // TODO: Mockの都合でmutになってしまっているのでmutを外したい
-    fn save(&mut self, user: User) -> Result<()>;
+    fn save(&self, user: User) -> Result<()>;
 
     // 処理が失敗する可能性がある&Userが存在しない可能性があるため、返り値はResult<Option<User>>型で定義
     fn find(&self, username: Name) -> Result<Option<User>>;
