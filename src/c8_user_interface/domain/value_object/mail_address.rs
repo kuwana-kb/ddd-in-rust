@@ -2,8 +2,9 @@ use std::str::FromStr;
 
 use anyhow::Result;
 use derive_more::Display;
+use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Eq, Display)]
+#[derive(Clone, Debug, PartialEq, Eq, Display, Serialize, Deserialize)]
 pub struct MailAddress(String);
 
 impl FromStr for MailAddress {

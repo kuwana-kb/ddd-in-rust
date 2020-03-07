@@ -2,15 +2,21 @@ use anyhow::Result;
 
 use crate::{
     c8_user_interface::{
-        domain::{exists, HaveUserRepository, MailAddress, Name, User, UserId, UserRepository},
-        usecase::{UserDeleteCommand, UserUpdateCommand, UserData},
+        domain::{exists, HaveUserRepository, User, UserId, UserRepository},
+        usecase::{CreateUserCommand, DeleteUserCommand, UpdateUserCommand, UserData},
     },
     MyError,
 };
 
+// Cake Patternによる実装
+// c6ではApplicationServiceをstructで表現したが、今回のパターンではtraitで表現している
+// このパターンだとtrait上のデフォルト実装に加えて、独自の実装に変更することもできる
+//
+// パターンは以下のブログを参考にした
+// https://keens.github.io/blog/2017/12/01/rustnodi/
 pub trait UserApplicationService: HaveUserRepository + std::marker::Sized {
-    fn register(&self, name: Name, mail_address: MailAddress) -> Result<()> {
-        let user = User::new(name, mail_address);
+    fn register(&self, cmd: CreateUserCommand) -> Result<()> {
+        let user = User::new(cmd.name().clone(), cmd.mail_address().clone());
         if exists(self, &user)? {
             bail!(MyError::internal_server_error("ユーザは既に存在しています"))
         }
@@ -25,7 +31,7 @@ pub trait UserApplicationService: HaveUserRepository + std::marker::Sized {
         Ok(user.into())
     }
 
-    fn update(&self, command: UserUpdateCommand) -> Result<()> {
+    fn update(&self, command: UpdateUserCommand) -> Result<()> {
         let mut user = self
             .provide_user_repository()
             .find_by_id(command.id().clone())?
@@ -46,8 +52,8 @@ pub trait UserApplicationService: HaveUserRepository + std::marker::Sized {
         Ok(())
     }
 
-    fn delete(&self, command: UserDeleteCommand) -> Result<()> {
-        let target_id = command.id().clone();
+    fn delete(&self, command: DeleteUserCommand) -> Result<()> {
+        let target_id = *command.id();
         let user = self
             .provide_user_repository()
             .find_by_id(target_id)?
@@ -57,6 +63,7 @@ pub trait UserApplicationService: HaveUserRepository + std::marker::Sized {
     }
 }
 
+// Repositoryを持つものに対して自動で実装を与えられる
 impl<T: HaveUserRepository> UserApplicationService for T {}
 
 pub trait HaveUserApplicationService {

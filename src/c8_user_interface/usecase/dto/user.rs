@@ -1,7 +1,8 @@
 use crate::c8_user_interface::domain::User;
+use serde::Serialize;
 
 // アプリケーションサービスのクライアントに対して公開するUserのDTO
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize)]
 pub struct UserData {
     id: String,
     name: String,

@@ -1,14 +1,12 @@
 use crate::c8_user_interface::{
-    domain::{HaveUserRepository},
-    usecase::{HaveUserApplicationService},
-    infrastructure::MockContext,
+    domain::HaveUserRepository, infrastructure::MockContext, usecase::HaveUserApplicationService,
 };
 
-pub struct MockServer {
+pub struct MockApi {
     context: MockContext,
 }
 
-impl HaveUserRepository for MockServer {
+impl HaveUserRepository for MockApi {
     type UserRepository = MockContext;
 
     fn provide_user_repository(&self) -> &Self::UserRepository {
@@ -16,7 +14,7 @@ impl HaveUserRepository for MockServer {
     }
 }
 
-impl HaveUserApplicationService for MockServer {
+impl HaveUserApplicationService for MockApi {
     type UserApplicationService = Self;
 
     fn provide_user_service(&self) -> &Self::UserApplicationService {
