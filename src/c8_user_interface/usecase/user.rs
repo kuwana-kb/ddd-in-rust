@@ -1,9 +1,12 @@
 use anyhow::Result;
-use derive_getters::Getters;
-use derive_new::new;
 
-use super::{exists, HaveUserRepository, MailAddress, Name, User, UserId, UserRepository};
-use crate::MyError;
+use crate::{
+    c8_user_interface::{
+        domain::{exists, HaveUserRepository, MailAddress, Name, User, UserId, UserRepository},
+        usecase::{UserDeleteCommand, UserUpdateCommand, UserData},
+    },
+    MyError,
+};
 
 pub trait UserApplicationService: HaveUserRepository + std::marker::Sized {
     fn register(&self, name: Name, mail_address: MailAddress) -> Result<()> {
@@ -60,34 +63,4 @@ pub trait HaveUserApplicationService {
     type UserApplicationService: UserApplicationService;
 
     fn provide_user_service(&self) -> &Self::UserApplicationService;
-}
-
-// Updateメソッドのパラメータ群。Optionで定義したフィールドは任意の更新項目とする。
-#[derive(Clone, Debug, Getters, new)]
-pub struct UserUpdateCommand {
-    id: UserId,
-    name: Option<Name>,
-    mail_address: Option<MailAddress>,
-}
-
-#[derive(Clone, Debug, Getters, new)]
-pub struct UserDeleteCommand {
-    id: UserId,
-}
-
-// アプリケーションサービスのクライアントに対して公開するUserのDTO
-#[derive(Clone, Debug)]
-pub struct UserData {
-    id: String,
-    name: String,
-}
-
-// User型からDTOへの変換処理
-impl From<User> for UserData {
-    fn from(v: User) -> Self {
-        Self {
-            id: v.id().to_string(),
-            name: v.name().to_string(),
-        }
-    }
 }
