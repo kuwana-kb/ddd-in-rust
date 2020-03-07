@@ -1,4 +1,8 @@
-use super::{HaveUserApplicationService, HaveUserRepository, MockContext};
+use crate::c8_user_interface::{
+    domain::{HaveUserRepository},
+    usecase::{HaveUserApplicationService},
+    infrastructure::MockContext,
+};
 
 pub struct MockServer {
     context: MockContext,
