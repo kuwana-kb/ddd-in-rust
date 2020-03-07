@@ -1,20 +1,11 @@
-use warp::{Filter, Rejection, Reply};
+use ddd::c8_user_interface::infrastructure::{users_api, MockApi, MockContext};
 
 #[tokio::main]
 async fn main() {
-    let hello = hello().and(name()).and_then(greet_handler);
-    warp::serve(hello).run(([127, 0, 0, 1], 3030)).await;
-}
+    let ctx = MockContext::default();
+    let api = MockApi::new(ctx);
 
-fn hello() -> warp::filters::BoxedFilter<()> {
-    warp::path("hello").boxed()
-}
-
-fn name() -> warp::filters::BoxedFilter<(String,)> {
-    warp::path::param().boxed()
-}
-
-async fn greet_handler(name: String) -> Result<impl Reply, Rejection> {
-    let reply = format!("hello {}", name);
-    Ok(warp::reply::html(reply))
+    warp::serve(users_api(&api))
+        .run(([127, 0, 0, 1], 3030))
+        .await;
 }
