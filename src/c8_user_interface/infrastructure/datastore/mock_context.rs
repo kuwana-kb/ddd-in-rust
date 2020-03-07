@@ -2,14 +2,13 @@ use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 
 use anyhow::Result;
-use derive_new::new;
 
 use crate::{
     c8_user_interface::domain::{Name, User, UserId, UserRepository},
     MyError,
 };
 
-#[derive(Clone, new)]
+#[derive(Clone, Debug, Default)]
 pub struct MockContext {
     db: Arc<Mutex<HashMap<UserId, User>>>,
 }
