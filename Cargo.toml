@@ -13,6 +13,7 @@ path = "src/c8_user_interface/app/main.rs"
 
 [dependencies]
 anyhow = "1.0.26"
+async-trait = "0.1.24"
 derive-getters = "0.1.0"
 derive_more = "0.99.2"
 derive-new = "0.5.8"

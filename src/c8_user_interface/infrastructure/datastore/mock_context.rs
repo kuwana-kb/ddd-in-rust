@@ -4,8 +4,10 @@ use std::sync::{Arc, Mutex};
 use anyhow::Result;
 use derive_new::new;
 
-use super::{Name, User, UserId, UserRepository};
-use crate::MyError;
+use crate::{
+    c8_user_interface::domain::{Name, User, UserId, UserRepository},
+    MyError,
+};
 
 #[derive(Clone, new)]
 pub struct MockContext {
