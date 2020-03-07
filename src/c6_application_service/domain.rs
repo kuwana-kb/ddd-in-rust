@@ -4,7 +4,7 @@ use std::str::FromStr;
 use anyhow::Result;
 use derive_getters::Getters;
 use derive_more::Display;
-use uuid::Uuid;
+use ulid::Ulid;
 
 use crate::MyError;
 
@@ -48,11 +48,19 @@ impl User {
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Display)]
-pub struct UserId(String);
+pub struct UserId(Ulid);
+
+impl UserId {
+    fn new(s: &str) -> Result<Self> {
+        Ok(UserId(Ulid::from_string(s).map_err(|_| {
+            MyError::type_error("failed to parse to user_id")
+        })?))
+    }
+}
 
 impl Default for UserId {
     fn default() -> Self {
-        UserId(Uuid::new_v4().to_string())
+        UserId(Ulid::new())
     }
 }
 
@@ -60,8 +68,7 @@ impl FromStr for UserId {
     type Err = anyhow::Error;
 
     fn from_str(s: &str) -> Result<Self> {
-        // ここでは省いているが、idの制約を満たすかチェックすること
-        Ok(UserId(s.to_string()))
+        Self::new(s)
     }
 }
 

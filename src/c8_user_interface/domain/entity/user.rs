@@ -1,8 +1,9 @@
 use derive_getters::Getters;
+use serde::{Deserialize, Serialize};
 
 use super::super::{MailAddress, Name, UserId};
 
-#[derive(Clone, Debug, Getters)]
+#[derive(Clone, Debug, Getters, Serialize, Deserialize)]
 pub struct User {
     id: UserId,
     name: Name,
