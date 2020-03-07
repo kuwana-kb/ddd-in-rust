@@ -1,7 +1,10 @@
+use derive_new::new;
+
 use crate::c8_user_interface::{
     domain::HaveUserRepository, infrastructure::MockContext, usecase::HaveUserApplicationService,
 };
 
+#[derive(Clone, Debug, new)]
 pub struct MockApi {
     context: MockContext,
 }
