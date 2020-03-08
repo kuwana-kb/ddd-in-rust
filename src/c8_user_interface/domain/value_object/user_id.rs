@@ -12,6 +12,7 @@ pub struct UserId(Ulid);
 
 impl UserId {
     fn new(s: &str) -> Result<Self> {
+        println!("user_id: {}", s);
         Ok(UserId(
             Ulid::from_string(s).map_err(|_| MyError::type_error("IDに誤りがあります"))?,
         ))

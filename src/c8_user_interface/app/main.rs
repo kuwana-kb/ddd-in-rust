@@ -5,7 +5,7 @@ async fn main() {
     let ctx = MockContext::default();
     let api = MockApi::new(ctx);
 
-    warp::serve(users_api(&api))
-        .run(([127, 0, 0, 1], 3030))
+    warp::serve(users_api(api))
+        .run(([127, 0, 0, 1], 8080))
         .await;
 }
