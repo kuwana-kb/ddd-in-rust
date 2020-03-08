@@ -1,23 +1,23 @@
 use warp::{Rejection, Reply};
 
 use crate::c8_user_interface::{
-    domain::UserId,
+    domain::Name,
     usecase::{CreateUserCommand, HaveUserApplicationService, UserApplicationService},
 };
 
-pub async fn get_user_handler<T>(app: &T, id: UserId) -> Result<impl Reply, Rejection>
+pub async fn get_user_handler<T>(app: T, name: Name) -> Result<impl Reply, Rejection>
 where
     T: HaveUserApplicationService,
 {
     let service = app.provide_user_service();
-    match service.get(id) {
+    match service.get_by_name(name) {
         Err(_) => Err(warp::reject::not_found()),
         Ok(user) => Ok(warp::reply::json(&user)),
     }
 }
 
 pub async fn register_user_handler<T>(
-    app: &T,
+    app: T,
     cmd: CreateUserCommand,
 ) -> Result<impl Reply, Rejection>
 where

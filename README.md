@@ -23,3 +23,35 @@ DDDにおける以下の概念をRustで表現しています。
 * Factory
 * Aggregate
 * Specification
+
+# サンプルアプリケーション
+
+## 起動
+```shell
+$ cargo run --bin mock_server
+```
+## サンプルリクエスト
+
+### CreateUser
+```shell
+$ curl -X PUT -H 'Content-Type:application/json' -D - localhost:8080/users/ -d '{"name": "kuwana-kb", "mail_address": "kuwanakb@hoge.com"}'
+
+HTTP/1.1 200 OK
+content-type: text/plain; charset=utf-8
+content-length: 7
+date: Sun, 08 Mar 2020 16:28:48 GMT
+
+success
+```
+
+### GetUserByName
+```shell
+$ curl -X GET -H 'Content-Type:application/json' -D - localhost:8080/users/ -d '"kuwana-kb"'
+
+HTTP/1.1 200 OK
+content-type: application/json
+content-length: 54
+date: Sun, 08 Mar 2020 16:29:01 GMT
+
+{"id":"01E2XFMGYRG35405W523R0PYYZ","name":"kuwana-kb"}
+```

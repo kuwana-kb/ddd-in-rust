@@ -2,7 +2,7 @@ use anyhow::Result;
 
 use crate::{
     c8_user_interface::{
-        domain::{exists, HaveUserRepository, User, UserId, UserRepository},
+        domain::{exists, HaveUserRepository, Name, User, UserRepository},
         usecase::{CreateUserCommand, DeleteUserCommand, UpdateUserCommand, UserData},
     },
     MyError,
@@ -23,10 +23,10 @@ pub trait UserApplicationService: HaveUserRepository + std::marker::Sized {
         self.provide_user_repository().save(user)
     }
 
-    fn get(&self, id: UserId) -> Result<UserData> {
+    fn get_by_name(&self, name: Name) -> Result<UserData> {
         let user = self
             .provide_user_repository()
-            .find_by_id(id)?
+            .find_by_name(name)?
             .ok_or_else(|| MyError::internal_server_error("ユーザが見つかりませんでした"))?;
         Ok(user.into())
     }
