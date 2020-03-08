@@ -28,7 +28,7 @@ impl DerefMut for PgConn {
 pub struct PgPool(Pool<PostgresConnectionManager<NoTls>>);
 
 impl PgPool {
-    pub fn new() -> Result<Self> {
+    pub fn new() -> Self {
         // ハードコードしているが、envy等で環境変数から取得する形にもできる
         let config = Config::new()
             .user("postgres")
@@ -44,7 +44,7 @@ impl PgPool {
             .build_unchecked(manager);
 
         let pg_pool = PgPool(pool);
-        Ok(pg_pool)
+        pg_pool
     }
 
     pub fn conn(&self) -> Result<PgConn> {

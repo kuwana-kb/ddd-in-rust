@@ -15,7 +15,7 @@ pub struct RDBContext {
 
 impl Default for RDBContext {
     fn default() -> Self {
-        let pool = PgPool::new().unwrap();
+        let pool = PgPool::new();
         Self { pool }
     }
 }

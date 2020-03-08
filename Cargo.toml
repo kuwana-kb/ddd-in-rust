@@ -12,7 +12,7 @@ path = "src/c8_user_interface/app/mock_server.rs"
 
 [[bin]]
 name = "rdb_server"
-path = "src/c8_user_interface//app/rdb_server.rs"
+path = "src/c8_user_interface/app/rdb_server.rs"
 
 
 [dependencies]
