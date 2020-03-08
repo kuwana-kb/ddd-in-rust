@@ -28,7 +28,7 @@ DDDにおける以下の概念をRustで表現しています。
 
 ## 起動
 ```shell
-$ cargo run --bin sample
+$ cargo run --bin mock_server
 ```
 ## サンプルリクエスト
 
