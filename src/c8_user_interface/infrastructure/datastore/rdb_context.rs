@@ -1,38 +1,70 @@
-use std::collections::HashMap;
-use std::sync::{Arc, Mutex};
+use std::convert::TryInto;
+use std::fmt;
 
 use anyhow::Result;
-use derive_new::new;
 
-use super::{Name, User, UserId, UserRepository};
-use crate::MyError;
+use crate::c8_user_interface::{
+    domain::{Name, User, UserId, UserRepository},
+    infrastructure::{PgPool, UserDto},
+};
 
-#[derive(Clone, new)]
+#[derive(Clone)]
 pub struct RDBContext {
-    db: PgPool,
+    pool: PgPool,
+}
+
+impl Default for RDBContext {
+    fn default() -> Self {
+        let pool = PgPool::new().unwrap();
+        Self { pool }
+    }
+}
+
+// Debug traitの要求を満たすため仮実装
+impl fmt::Debug for RDBContext {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        writeln!(f, "RDBContext debug")?;
+        Ok(())
+    }
 }
 
 impl UserRepository for RDBContext {
     fn save(&self, user: User) -> Result<()> {
-        let db = self.db.clone();
-        let mut db = db
-            .try_lock()
-            .map_err(|_| MyError::internal_server_error("failed to try_lock db"))?;
-        db.insert(user.id().clone(), user);
+        let mut client = self.pool.conn()?;
+
+        let user: UserDto = user.into();
+        let stmt = r#"
+            INSERT INTO
+                users
+            VALUE
+                ($1, $2, $3)
+            ;
+        "#;
+
+        client.execute(stmt, &[user.id(), user.name(), user.mail_address()])?;
         Ok(())
     }
 
     fn find_by_name(&self, name: Name) -> Result<Option<User>> {
-        let db = self.db.clone();
-        let db = db
-            .try_lock()
-            .map_err(|_| MyError::internal_server_error("failed to try_lock db"))?;
-        let target = db
-            .values()
-            .filter(|user| user.name().clone() == name)
-            .cloned()
-            .collect::<Vec<User>>();
-        Ok(target.first().cloned())
+        let mut client = self.pool.conn()?;
+
+        let stmt = r#"
+            SELECT 
+                * 
+            FROM 
+                users 
+            WHERE
+                name = $1
+        "#;
+
+        let row = client.query_one(stmt, &[&name.to_string()])?;
+
+        let id = row.get("id");
+        let name = row.get("name");
+        let mail_address = row.get("mail_address");
+        let dto = UserDto::new(id, name, mail_address);
+
+        Ok(Some(dto.try_into()?))
     }
 
     fn find_by_id(&self, _id: UserId) -> Result<Option<User>> {

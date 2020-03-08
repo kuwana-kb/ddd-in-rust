@@ -7,8 +7,12 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [[bin]]
-name = "sample"
-path = "src/c8_user_interface/app/main.rs"
+name = "mock_server"
+path = "src/c8_user_interface/app/mock_server.rs"
+
+[[bin]]
+name = "rdb_server"
+path = "src/c8_user_interface//app/rdb_server.rs"
 
 
 [dependencies]
@@ -19,6 +23,7 @@ derive_more = "0.99.2"
 derive-new = "0.5.8"
 diesel = "1.4.3"
 postgres = "0.17.1"
+r2d2_postgres = "0.16.0"
 regex = "1.3.4"
 rust_decimal = { version = "1.2.1"}
 serde = { version = "1.0.104", features = ["derive"]}
