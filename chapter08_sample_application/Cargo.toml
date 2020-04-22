@@ -1,0 +1,30 @@
+[package]
+name = "chapter08_sample_application"
+version = "0.1.0"
+authors = ["kuwana-kb <41671293+kuwana-kb@users.noreply.github.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+name = "mock_server"
+path = "src/app/mock_server.rs"
+
+[[bin]]
+name = "rdb_server"
+path = "src/app/rdb_server.rs"
+
+
+[dependencies]
+anyhow = "1.0.28"
+derive-getters = "0.1.0"
+derive_more = "0.99.5"
+derive-new = "0.5.8"
+postgres = "0.17.2"
+r2d2_postgres = "0.16.0"
+serde = { version = "1.0.106", features = ["derive"]}
+tokio = { version = "0.2", features = ["macros"]}
+ulid = "0.3.1"
+warp = "0.2.2"
+
+common = { path = "../common"}

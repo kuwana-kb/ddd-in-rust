@@ -1,0 +1,2 @@
+cargo:rustc-env=TYPENUM_BUILD_CONSTS=/Users/kuwana-taisuke/private/ddd/c5_repository/target/debug/build/typenum-608b3c44cca1f42d/out/consts.rs
+cargo:rustc-env=TYPENUM_BUILD_OP=/Users/kuwana-taisuke/private/ddd/c5_repository/target/debug/build/typenum-608b3c44cca1f42d/out/op.rs

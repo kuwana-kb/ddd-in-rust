@@ -1,0 +1,14 @@
+[package]
+name = "chapter03_entity"
+version = "0.1.0"
+authors = ["kuwana-kb <41671293+kuwana-kb@users.noreply.github.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.28"
+derive-getters = "0.1.0"
+derive_more = "0.99.5"
+
+common = {path = "../common/"}
