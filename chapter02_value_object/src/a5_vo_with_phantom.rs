@@ -13,7 +13,7 @@ use rust_decimal::Decimal;
 // ここで嬉しいのは、誤った通貨単位同士の加算をコンパイル時に検査できること
 // Tはただのラベルとして扱いたいだけだが消費しないと怒られるので、std::marker::PhantdomDataを用いる
 // 参考: https://keens.github.io/blog/2018/12/15/rustdetsuyomenikatawotsukerupart_1__new_type_pattern/
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Money<T> {
     amount: Decimal,
     currency: PhantomData<T>,
@@ -36,8 +36,10 @@ impl<T> Add for Money<T> {
     }
 }
 
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub enum JPY {}
 
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub enum USD {}
 
 #[test]
@@ -45,8 +47,9 @@ fn test_phantom_money() {
     let jpy_1 = Money::<JPY>::new(Decimal::new(1, 0));
     let jpy_2 = Money::<JPY>::new(Decimal::new(2, 0));
 
-    let usd = Money::<USD>::new(Decimal::new(3, 0));
+    let _usd = Money::<USD>::new(Decimal::new(3, 0));
 
     let result = jpy_1 + jpy_2; // コンパイルOk
-                                // let invalid_result = jpy_1 + usd; //コンパイルエラー
+    assert_eq!(result, Money::<JPY>::new(Decimal::new(3, 0)));
+    // let invalid_result = jpy_1 + usd; //コンパイルエラー
 }

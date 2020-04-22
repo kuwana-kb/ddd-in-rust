@@ -13,7 +13,8 @@ use super::{IUserRepository, Name, User};
 #[derive(Clone, Debug, new)]
 pub struct UserRepository {}
 
-const CONNECTION_STRING: &str = "host=localhost user=postgres";
+// const CONNECTION_STRING: &str = "host=localhost user=postgres";
+const CONNECTION_STRING: &str = "postgres://postgres:password@localhost:5432/users";
 
 impl IUserRepository for UserRepository {
     fn save(&self, user: User) -> Result<()> {
@@ -90,5 +91,5 @@ fn repository_example() {
 
     let repo = UserRepository::new();
     let mut program = Program::new(repo);
-    program.create_user("Taro".parse().unwrap()).unwrap();
+    program.create_user("Taro".parse().unwrap()).unwrap(); // DBインスタンスをたてていないと失敗します。
 }
