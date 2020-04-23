@@ -6,4 +6,5 @@ members = [
     "./chapter05_repository/",
     "./chapter06_application_service/",
     "./chapter08_sample_application/",
+    "./chapter09_factory/",
 ]
