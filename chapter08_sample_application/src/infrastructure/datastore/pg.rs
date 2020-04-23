@@ -43,8 +43,7 @@ impl PgPool {
             .connection_timeout(Duration::from_secs(10))
             .build_unchecked(manager);
 
-        let pg_pool = PgPool(pool);
-        pg_pool
+        PgPool(pool)
     }
 
     pub fn conn(&self) -> Result<PgConn> {
