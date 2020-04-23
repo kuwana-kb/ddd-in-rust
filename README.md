@@ -14,6 +14,7 @@ DDDの実装パターンをRustのコードで表現しています。
 * Value Object
 * Domain Service
 * Application Service
+* Factory
 
 ## WIP
 * Dependency Injection
@@ -21,7 +22,6 @@ DDDの実装パターンをRustのコードで表現しています。
 * Repository
 
 ## TODO
-* Factory
 * Aggregate
 * Specification
 
