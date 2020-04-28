@@ -36,13 +36,14 @@ impl PartialEq for FullName {
 }
 
 #[test]
-fn test_full_name() {
-    let name1 = FullName::new("taro", "tanaka");
-    let name1_copied = name1.clone();
-    let name2 = FullName::new("jiro", "suzuki");
+fn test_equality_of_vo() {
+    let taro_tanaka_1 = FullName::new("taro", "tanaka");
+    let taro_tanaka_2 = FullName::new("taro", "tanaka");
+    let jiro_suzuki = FullName::new("jiro", "suzuki");
 
-    // name1とそのコピーの比較
-    assert_eq!(name1, name1_copied); // Ok
-                                     // name1とnameの比較
-    assert_ne!(name1, name2); // Ok
+    // 値が同じVOの比較。一致する
+    assert_eq!(taro_tanaka_1, taro_tanaka_2); // Ok
+
+    // 値が異なるVOの比較。一致しない
+    assert_ne!(taro_tanaka_1, jiro_suzuki); // Ok
 }
