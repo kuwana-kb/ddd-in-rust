@@ -85,7 +85,10 @@ impl TryFrom<UserDto> for User {
     }
 }
 
+// To run this test:
+// cargo test -- --ignored
 #[test]
+#[ignore]
 fn repository_example() {
     use super::Program;
 
