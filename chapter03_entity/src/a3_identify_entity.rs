@@ -2,8 +2,6 @@
 
 use anyhow::Result;
 use derive_getters::Getters;
-use derive_more::Display;
-use std::str::FromStr;
 
 use common::MyError;
 
@@ -20,7 +18,6 @@ impl User {
     }
 
     // nameフィールドは可変性を持つ
-    // Name型が3文字以上を保証しているため、ここでチェックする必要はない
     pub fn change_username(&mut self, name: Name) {
         self.name = name;
     }
@@ -37,7 +34,7 @@ impl PartialEq for User {
 impl Eq for User {}
 
 /// ユーザーID
-#[derive(Clone, Debug, Display, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct UserId(String);
 
 impl UserId {
@@ -47,30 +44,25 @@ impl UserId {
 }
 
 /// 名前
-#[derive(Clone, Display, Debug)]
+#[derive(Clone, Debug)]
 pub struct Name(String);
 
-impl FromStr for Name {
-    type Err = anyhow::Error;
-
-    fn from_str(s: &str) -> Result<Self> {
+impl Name {
+    pub fn new(s: &str) -> Result<Self, anyhow::Error> {
         if s.chars().count() < 3 {
             bail!(MyError::type_error("ユーザー名は3文字以上です"))
         }
-        Ok(Self(s.to_string()))
+        Ok(Name(s.to_string()))
     }
 }
 
 #[test]
 fn test_user_eq() {
-    let user_before = User::new(UserId::new("DummyId1"), "Hoge".parse().unwrap());
+    let user_before = User::new(UserId::new("DummyId1"), Name::new("Hoge").unwrap());
     let mut user_after = user_before.clone();
-    user_after.change_username("Fuga".parse().unwrap());
+    user_after.change_username(Name::new("Fuga").unwrap());
 
-    // beforeとafterで名前が異なる
-    assert_eq!(user_before.name().to_string(), "Hoge".to_string()); // Ok
-    assert_eq!(user_after.name().to_string(), "Fuga".to_string()); // Ok
-
-    // PartialEq traitを実装したのでUserを比較可能
+    // User の属性を変更しても、同一性は同じまま
+    // PartialEq trait を実装したので User を比較可能
     assert_eq!(user_before, user_after); // Ok
 }

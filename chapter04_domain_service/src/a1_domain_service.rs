@@ -26,11 +26,11 @@ impl UserService {
 
 #[test]
 fn check_user() {
-    use chapter03_entity::UserId;
+    use chapter03_entity::{Name, UserId};
 
     // UserServiceの使い方を表すサンプル
     let user_service = UserService::new();
 
-    let user = User::new(UserId::new("id"), "Hoge".parse().unwrap());
+    let user = User::new(UserId::new("id"), Name::new("Hoge").unwrap());
     // let duplicate_check_result = user_service.exists(user); // 実装がないためpanicする
 }
