@@ -1,7 +1,5 @@
 #![allow(dead_code)]
 
-use anyhow::Result;
-
 use common::MyError;
 
 // Userモデルに対して可変性を与えた
@@ -11,7 +9,7 @@ pub struct User {
 }
 
 impl User {
-    pub fn new(name: &str) -> Result<Self> {
+    pub fn new(name: &str) -> Result<Self, MyError> {
         let mut user = Self {
             name: Default::default(),
         };
@@ -22,9 +20,9 @@ impl User {
     // ふるまいを通じて属性を変更する
     // 変更ロジックはメソッド内に閉じ込めている
     // (個人的にはName型を定義して引数の時点で値を保証する方が好き)
-    pub fn change_name(&mut self, name: &str) -> Result<()> {
+    pub fn change_name(&mut self, name: &str) -> Result<(), MyError> {
         if name.chars().count() < 3 {
-            bail!(MyError::type_error("ユーザー名は3文字以上です"))
+            return Err(MyError::type_error("ユーザー名は3文字以上です"));
         }
         self.name = name.to_string();
         Ok(())

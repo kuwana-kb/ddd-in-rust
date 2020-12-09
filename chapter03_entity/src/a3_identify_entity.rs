@@ -1,9 +1,8 @@
 #![allow(dead_code)]
 
 use anyhow::Result;
-use derive_getters::Getters;
-
 use common::MyError;
+use derive_getters::Getters;
 
 /// Userモデルに対して可変性と同一性を与えた
 #[derive(Clone, Debug, Getters)]
